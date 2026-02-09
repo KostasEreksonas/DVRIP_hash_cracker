@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import os
 import re
 import sys
 import json
@@ -43,7 +44,7 @@ def deps():
     print(f"[+] IP: {ip}")
     print(f"[+] ONVIF port: {onvif_port}")
     print(f"[+] DVRIP/Sofia port: {sofia_port}")
-    print(f"[+] Wordlist: {wordlist}")
+    print(f"[+] Wordlist: {os.path.basename(wordlist)}")
 
     return wordlist, ip, onvif_port, sofia_port
 
@@ -173,7 +174,7 @@ def crack(wordlist, hash_string):
     """Crack password"""
     c = 0
     found = 0
-    encoding = 'latin-1' if re.match('rockyou', wordlist) else 'utf-8'
+    encoding = 'latin-1' if re.match('rockyou', os.path.basename(wordlist)) else 'utf-8'
     with open(wordlist, "rb") as f:
         total_lines = sum(1 for _ in f)
     with open(wordlist, 'r', encoding=encoding) as file:
